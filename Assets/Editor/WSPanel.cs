@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EditorWindowParameter : ScriptableSingleton<EditorWindowParameter>
 {
-	public int selectedStageNo = 13;
+	public int selectedStageNo = 4;
 	public bool projectWasLoaded = false;
 }
 
@@ -19,12 +19,10 @@ public class WSPanel : EditorWindow
         EditorGUI.BeginChangeCheck ();
         EditorGUILayout.LabelField ("ステージ選択");
         god.selectedStageNo = GUILayout.SelectionGrid (god.selectedStageNo,
-            new string[]{ "ステージ01", "ステージ02", "ステージ03", "ステージ04", "ステージ05",
-            "ステージ06", "ステージ07", "ステージ08", "ステージ09", "ステージ10", "ステージ11",
-            "ステージ12", "ステージ13", "全ステージ"}, 1);
+            new string[]{ "ステージ01", "ステージ02", "ステージ03", "ステージ04", "全ステージ"}, 1);
         if (EditorGUI.EndChangeCheck ()) {
             SetHierarchy();
-            if(god.selectedStageNo >= 13)
+            if(god.selectedStageNo >= 4)
             {
                 Debug.Log("edit 全ステージ");
                 return;
@@ -36,7 +34,7 @@ public class WSPanel : EditorWindow
     public static void SetHierarchy() {
         var god = EditorWindowParameter.instance;
         Clear();
-        if(god.selectedStageNo >= 13) return;
+        if(god.selectedStageNo >= 4) return;
         DisableBase();
         EnableStageOnly(god.selectedStageNo + 1);
     }
@@ -47,15 +45,6 @@ public class WSPanel : EditorWindow
         "ステージ02",
         "ステージ03",
         "ステージ04",
-        "ステージ05",
-        "ステージ06",
-        "ステージ07",
-        "ステージ08",
-        "ステージ09",
-        "ステージ10",
-        "ステージ11",
-        "ステージ12",
-        "ステージ13",
         "共通"};
 //----------
     private static void Clear()

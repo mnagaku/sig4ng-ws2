@@ -41,15 +41,6 @@ public static class ReopenScenes
             EditorSceneManager.OpenScene("Assets/ステージ02.unity", OpenSceneMode.Additive);
             EditorSceneManager.OpenScene("Assets/ステージ03.unity", OpenSceneMode.Additive);
             EditorSceneManager.OpenScene("Assets/ステージ04.unity", OpenSceneMode.Additive);
-            EditorSceneManager.OpenScene("Assets/ステージ05.unity", OpenSceneMode.Additive);
-            EditorSceneManager.OpenScene("Assets/ステージ06.unity", OpenSceneMode.Additive);
-            EditorSceneManager.OpenScene("Assets/ステージ07.unity", OpenSceneMode.Additive);
-            EditorSceneManager.OpenScene("Assets/ステージ08.unity", OpenSceneMode.Additive);
-            EditorSceneManager.OpenScene("Assets/ステージ09.unity", OpenSceneMode.Additive);
-            EditorSceneManager.OpenScene("Assets/ステージ10.unity", OpenSceneMode.Additive);
-            EditorSceneManager.OpenScene("Assets/ステージ11.unity", OpenSceneMode.Additive);
-            EditorSceneManager.OpenScene("Assets/ステージ12.unity", OpenSceneMode.Additive);
-            EditorSceneManager.OpenScene("Assets/ステージ13.unity", OpenSceneMode.Additive);
 
             var editorAsm = typeof(Editor).Assembly;
             var inspWndType = editorAsm.GetType("UnityEditor.InspectorWindow");
