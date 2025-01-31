@@ -47,7 +47,7 @@ public class Hazard : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Hazard"))
         {
             if (gameSystem != null)gameSystem.onPlayerHitHazard();
         }
@@ -55,7 +55,7 @@ public class Hazard : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!collision.gameObject.CompareTag("Hazard"))
         {
             if (gameSystem != null)gameSystem.onPlayerHitHazard();
         }

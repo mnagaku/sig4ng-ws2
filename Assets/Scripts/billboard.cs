@@ -24,7 +24,7 @@ public class billboard : MonoBehaviour
 #endif
 
         // カメラ条件の絞り込み.
-        if (isPlaying && Camera.current.name == "Main Camera")
+        if (isPlaying && Camera.current.name == "MainCamera")
             UpdateTransformInGame();
         else if (!isPlaying && Camera.current.name == "SceneCamera")
             UpdateTransformInEditor();

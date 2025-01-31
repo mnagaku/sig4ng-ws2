@@ -33,10 +33,10 @@ public class Gate : MonoBehaviour
     }
 
     //スコアが更新されるたびに呼ばれる関数
-    public void UpdateScore(int score)
+    public void UpdateScore(int score, int maxScorePoint)
     {
         //スコアが一定を越えていてまだ動いていなかったらコルーチンを呼ぶ
-        if (!isMoved && score >= scoreThreshold)
+        if (!isMoved && ((0 < scoreThreshold && score >= scoreThreshold) || (0 >= scoreThreshold && score >= maxScorePoint)))
         {
             isMoved = true;
             StartCoroutine(MoveGate());

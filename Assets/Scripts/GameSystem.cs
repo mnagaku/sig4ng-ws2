@@ -14,6 +14,8 @@ public class GameSystem : MonoBehaviour
     ScoreDisplay scoreDisplay = null;//スコア表示用スクリプト
     [SerializeField] AudioClip PickUpSE;//アイテム取得時の音を鳴らすAudioClip
     [SerializeField] AudioClip HitSE;//Hazard接触時の音を鳴らすAudioClip
+    [SerializeField] AudioClip MainMusic;
+    [SerializeField] AudioClip GoalMusic;
     [SerializeField] private bool IsClearOnAllItemsCollected=true;//全アイテム回収でゴールとするか否か
     [SerializeField] private string[] tutorialMessages = new string[3];//チュートリアルメッセージのテキスト
     [SerializeField] private string SceneName = "SampleScene";
@@ -22,6 +24,7 @@ public class GameSystem : MonoBehaviour
     private bool playerIsDead;//プレイヤーがHazardに接触してからリスポーンするまでTrueになるフラグ 
     private Vector3 playerRespawnAt;//リスポーンポイントの座標
     private AudioSource audioSource;
+    private AudioSource audioSource4BGM;
 
     void Awake(){
         gameObject.tag = "GameController";
@@ -31,6 +34,10 @@ public class GameSystem : MonoBehaviour
         tutorialMessages[2]="Goal!";
         audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
+        audioSource4BGM = GetComponent<AudioSource>();
+        audioSource4BGM.clip = MainMusic;
+        audioSource4BGM.loop = true;
+        audioSource4BGM.Play();
     }
     void Start()
     {
@@ -120,6 +127,10 @@ public class GameSystem : MonoBehaviour
     //ゴールの処理
     private IEnumerator ProcessGoalSequence()
     {
+        audioSource4BGM.Stop();
+        audioSource4BGM.clip = GoalMusic;
+        audioSource4BGM.Play();
+
         if(PickUpSE!=null)audioSource.PlayOneShot(PickUpSE);//音を鳴らす
         //タイマーや操作、イベントなどを止める処理
         if(scoreDisplay!=null)scoreDisplay.StopTimer();
@@ -145,6 +156,9 @@ public class GameSystem : MonoBehaviour
                     if(PickUpSE!=null)audioSource.PlayOneShot(PickUpSE);//音を鳴らす
                     textController.AddDisplayMessage("\nHigh Score!");
                 }
+                yield return new WaitForSeconds(1.0f);
+                if(PickUpSE!=null)audioSource.PlayOneShot(PickUpSE);//音を鳴らす
+                textController.AddDisplayMessage("\nHit Enter Key to Retry!");
             }
         }
     }
@@ -158,7 +172,7 @@ public class GameSystem : MonoBehaviour
         {
             foreach (var gate in gateList)
             {
-                gate.UpdateScore(score);
+                gate.UpdateScore(score, maxScorePoint);
             }
         }
     }
@@ -180,7 +194,12 @@ public class GameSystem : MonoBehaviour
     //リトライの処理
     public void onRetryButtonClick()
     {
-        SceneManager.LoadScene(SceneName);
+//        SceneManager.LoadScene(SceneName);
+        SceneManager.LoadScene("共通");
+        for(int n = 1; n <= 4; n++)
+        {
+  			SceneManager.LoadScene("ステージ"+string.Format($"{n:d2}"), LoadSceneMode.Additive);
+        }
     }
     //Attackボタンが押されたらリトライ
 
